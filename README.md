@@ -1,2 +1,2 @@
 # Raiden-Bot
-NaN
+ Nan
