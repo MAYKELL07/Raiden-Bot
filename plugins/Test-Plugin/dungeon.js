@@ -6,31 +6,28 @@ let handler = async (m, { conn, text }) => {
     switch (difficulty) {
         case 'easy':
             let monsters = [
-                { area: 1, name: "Goblin" },
-                { area: 1, name: "Slime" },
-                { area: 1, name: "Wolf" },
-                { area: 2, name: "Nymph" },
-                { area: 2, name: "Skeleton" },
-                { area: 2, name: "Wolf" },
-                { area: 3, name: "Baby Demon" },
-                { area: 3, name: "Ghost" },
-                { area: 3, name: "Zombie" },
-                { area: 4, name: "Imp" },
-                { area: 4, name: "Witch" },
-                { area: 4, name: "Zombie" },
-                { area: 5, name: "Ghoul" },
-                { area: 5, name: "Giant Scorpion" },
-                { area: 5, name: "Unicorn" },
+                { name: "Goblin" },
+                { name: "Slime" },
+                { name: "Wolf" },
+                { name: "Nymph" },
+                { name: "Skeleton" },
+                { name: "Wolf" },
+                { name: "Baby Demon" },
+                { name: "Ghost" },
+                { name: "Zombie" },
+                { name: "Imp" },
+                { name: "Witch" },
+                { name: "Zombie" },
+                { name: "Ghoul" },
+                { name: "Giant Scorpion" },
+                { name: "Unicorn" },
             ]
-            let areaPlayer = monsters.map(v => v.area)
-            areaPlayer = areaPlayer[Math.floor(Math.random() * areaPlayer.length)]
-            let area_monsters = monsters.filter(monster => { return monster.area === areaPlayer })
             let monster = area_monsters[Math.floor(Math.random() * area_monsters.length)]
             let monsterName = monster.name.toUpperCase()
-            let mosnterlevel = player.level * 2
+            let mosnterlevel = Math.floor(Math.random() * 11);
 
             if (new Date -  player.lastdungeon > 120000) {
-                let sum = 10 * areaPlayer - 30
+                let sum = 10 * mosnterlevel - 50
                 let dmg = (player.sword  * 5 + player.armor * 5 - sum + mosnterlevel) 
                 dmg = dmg < 0 ? Math.abs(dmg) : 0
                 let coins = areaPlayer * 50
