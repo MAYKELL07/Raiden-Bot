@@ -13,8 +13,8 @@ const Bfishingrod = 2000
 const Sfishingrod = 500
 const Blegendary = 7500 
 const Slegendary = 3000
-const BMoraCrystal = 110000
-const SMoraCrystal = 100000
+const BMoraCrystal = 11000
+const SMoraCrystal = 10000
 const Bsampah = 10
 const Ssampah = 2
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
