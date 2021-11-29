@@ -37,7 +37,7 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
 }
 
 handler.help = ['rob <args>','curi <args>']
-handler.tags = ['xp']
+handler.tags = ['economy']
 handler.command = /^(rob|curi)$/
 handler.register = true
 

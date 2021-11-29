@@ -20,8 +20,7 @@ const defaultMenu = {
 │
 ├ Uptime: *%uptime (%muptime)*
 ├ Database: %rtotalreg dari %totalreg
-├ Github:
-├ %github
+├ Github:*PRIVATE*
 └────
 %readmore`.trimStart(),
   header: '┌─〔 %category 〕',
@@ -41,6 +40,7 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
     'main': 'Utama',
     'game': 'Game',
     'xp': 'Exp & Limit',
+    'economy': 'Economy',
     'rpg': 'Rpg Game',
     'sticker': 'Stiker',
     'kerang': 'Kerang Ajaib',
