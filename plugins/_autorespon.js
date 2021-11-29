@@ -29,10 +29,9 @@ handler.all = async function (m, { isBlocked }) {
     if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('https://chat') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) {
         this.sendButton(m.chat, `┌〔 Undang Bot ke Grup 〕
 ├ 7 Hari / Rp 5,000
-├ 30 Hari / Rp 10,000
+├ 30 Hari / Rp 15,000
 └────
 
-https://github.com/ariffb25/Raidenbot
 `.trim(), '© Raiden', 'Pemilik Bot', ',owner', m)
     }
 

@@ -150,6 +150,14 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       }
       setting.backup = isEnable
       break
+    case 'clear':
+      isAll = true
+      if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      setting.clear = isEnable
+      break
     case 'anticall':
       isAll = true
       if (!isOwner) {
