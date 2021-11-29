@@ -3,7 +3,7 @@ let handler = m => m
 handler.before = async function (m) {
 
     if (!global.db.data.settings.clear) return // autoclear aktif?{
-        if (new Date() * 1 - global.db.data.settings.cleartime < 3600000) {
+        if (new Date() * 1 - global.db.data.settings.cleartime < 60000) {
             let chats = this.chats.all().filter(v => !v.read_only && v.message).map(v => v.jid)
             grup = []
             for (let id of chats) {
