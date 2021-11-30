@@ -7,6 +7,7 @@ let handler = async (m, { conn, usedPrefix, args, command }) => {
     conn.war2 = conn.war2 ? conn.war2 : {}
   
     if (!args[0] || args[0] == "help") return m.reply(`*❏  W A R - Z O N E*
+    *Fitur Ini Masih Tahap Beta*
   [1] War Zone adalah game perang dengan sistem _turn attack_ atau menyerang secara bergiliran
   [2] Permainan dapat dimulai dengan 1v1 sampai dengan 5v5
   [3] Modal perang adalah harta rampasan perang jika tim kamu menang
