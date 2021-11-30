@@ -25,8 +25,8 @@ let handler = async (m, { conn, usedPrefix, args, command }) => {
     if (args[0] == "money"){
       if (!(m.chat in conn.war)) return m.reply(`*Silahkan buat room terlebih dahulu (Ketik .war join)*`)
       if(m.sender == conn.war[m.chat][0].user){
-        if (args[1] != "undefined" && !isNaN(conn.number(args[1]))){
-          args[1] = conn.number(args[1])
+        if (args[1] != "undefined" && !isNaN(args[1])){
+          args[1] = args[1]
           if (args[1] < 10000) return m.reply('*Minimal Rp. 10.000*')
           conn.war2[m.chat].money = args[1]
           return m.reply("*Berhasil menetapkan modal perang sebesar Rp. " + Number(args[1]).toLocaleString() + "*")
