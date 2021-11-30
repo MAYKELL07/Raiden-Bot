@@ -72,6 +72,9 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
   if (teks == 'xp') tags = {
     'xp': 'Exp & Limit'
   }
+  if (teks == 'economy') tags = {
+    'economy': 'Economy & Bank'
+  }
   if (teks == 'stiker') tags = {
     'sticker': 'Stiker'
   }
