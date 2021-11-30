@@ -1,5 +1,5 @@
 {
-  "name": "stikerinbot",
+  "name": "RaidenBot",
   "version": "1.1.2",
   "description": "WhatsApp Bot Ringan",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "plugins": "plugins"
   },
   "scripts": {
-    "start": "node index.js --self",
+    "start": "node index.js --self ",
     "test": "node test.js"
   },
   "repository": {
