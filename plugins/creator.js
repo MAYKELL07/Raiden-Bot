@@ -1,7 +1,7 @@
 function handler(m) {
   // Ini cuma contoh, jgn di uncomment -_-
   // F this.sendContact(m.chat, '6282324892737', 'Fokus Dot Id', m)
-  this.sendContact(m.chat, '6282324892737', 'Fokus Dot Id', m)
+  this.sendContact(m.chat, '6289602213818', 'Maykell', m)
   conn.reply(m.chat, `Nih OwnerKu Jangan dispam yah >_<`, m)
   
 }
