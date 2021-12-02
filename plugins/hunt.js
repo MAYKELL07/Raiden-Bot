@@ -59,7 +59,7 @@ let handler = async (m, { conn, text }) => {
 
 		player.money += coins * 1
 		player.exp += exp * 1
-
+		let url = fishtype.url
 		let pesan = `*${pname}* Menemukan Dan Membunuh *${monsterName}*\nMendapatkan ${new Intl.NumberFormat('en-US').format(coins)} coins & ${new Intl.NumberFormat('en-US').format(exp)} XP\nBerkurang -${dmg}Hp, Tersisa ${player.healt}/${100}`
 		conn.sendMessage(m.chat, pesan, MessageType.text, {
 			contextInfo: {
