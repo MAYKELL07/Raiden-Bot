@@ -21,6 +21,7 @@ const defaultMenu = {
 ├ Uptime: *%uptime (%muptime)*
 ├ Database: %rtotalreg dari %totalreg
 ├ Github:*PRIVATE*
+├ Website: *http://raiden-bot.ga/*
 └────
 %readmore`.trimStart(),
   header: '┌─〔 %category 〕',

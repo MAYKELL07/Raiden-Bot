@@ -30,6 +30,8 @@ handler.all = async function (m, { isBlocked }) {
         this.sendButton(m.chat, `┌〔 Undang Bot ke Grup 〕
 ├ 7 Hari / Rp 5,000
 ├ 30 Hari / Rp 15,000
+├ *Trial 5 Hari*
+├ Ketik .Trial <linkgroup>
 └────
 
 `.trim(), '© Raiden', 'Pemilik Bot', ',owner', m)
