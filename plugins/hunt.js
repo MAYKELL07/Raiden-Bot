@@ -65,7 +65,7 @@ let handler = async (m, { conn, text }) => {
 			contextInfo: {
 			externalAdReply: {
 			title: monsterName,
-			body: `*-${dmg}`,
+			body: `*-${dmg}*`,
 			thumbnail: await (await fetch(url)).buffer() ,
 			sourceUrl: 'http://raiden-bot.ga/'}}})
 	} else throw `Tunggu *${cd1}:${cd2}* Untuk Berburu Lagi`
