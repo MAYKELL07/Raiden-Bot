@@ -9,8 +9,6 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
     let hasil2 = Math.floor(percentCalculation(user.money, percentX))
     let cdm = `${MeNit(new Date - user.lastrob)}`
 	let cds = `${DeTik(new Date - user.lastrob)}`
-    let fixmoney = Math.floor(user.money)
-    let fixmoney2 = Math.floor(iser.money)
 	let cd1 = Math.ceil(01 - cdm)
 	let cd2 = Math.ceil(60 - cds)
     if (new Date - user.lastrob > 120000) {

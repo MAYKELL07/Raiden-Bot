@@ -29,6 +29,7 @@ module.exports = {
       try {
         let user = global.db.data.users[m.sender]
         if (typeof user !== 'object') global.db.data.users[m.sender] = {}
+
         if (user) {
           if (!isNumber(user.exp)) user.exp = 0
           if (!isNumber(user.limit)) user.limit = 10
@@ -57,8 +58,6 @@ module.exports = {
           if (!('pasangan' in user)) user.pasangan = ''
           //Misc
           if (!isNumber(user.lastclaim)) user.lastclaimm = 0  
-          if (!isNumber(user.lastnebang)) user.lastnebang = 0
-          if (!isNumber(user.lastnyampah)) user.lastnyampah = 0
           if (!isNumber(user.lastowner)) user.lastowner = 0
           if (!isNumber(user.lastrob)) user.lastrob = 0
           if (!isNumber(user.diamond)) user.diamond = 0
@@ -114,13 +113,13 @@ module.exports = {
           if (!isNumber(user.lastmonthly)) user.lastmontly = 0
 
         } else global.db.data.users[m.sender] = {
+          rpg: {
+
+          },
           healt: 100,
           level: 1,
           exp: 0,
           limit: 10,
-          lastngojek: 0,
-          lastnebang: 0,
-          lastnyampah: 0,
           lastowner: 0,
           money: 0,
           bank: 0,
