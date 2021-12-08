@@ -26,8 +26,8 @@ let handler = async (m, { conn, command, args, text, usedPrefix, DevMode }) => {
             case 'common':
                 if (user.common >= amount) {
                     user.common -= amount
-                    user.money += `${Math.floor(Math.random() * 10 * amount)}`.trim()
-                    user.exp += `${Math.floor(Math.random() * 10 * amount)}`.trim()
+                    user.money += `${Math.floor(Math.random() * 100 * amount)}`.trim()
+                    user.exp += `${Math.floor(Math.random() * 50 * amount)}`.trim()
                     if (!user.rpg[randCommon]) { //random common item
                         user.rpg[randCommon] = 0
                         user.rpg[randCommon] += randomnumCommon}
@@ -35,7 +35,57 @@ let handler = async (m, { conn, command, args, text, usedPrefix, DevMode }) => {
                         user.rpg[randUncommon] = 0
                         user.rpg[randUncommon] += randomnumUnommon}
                 }
-            break      
+            break
+            case 'uncommon':
+                if (user.uncommon >= amount) {
+                    user.uncommon -= amount
+                    user.money += `${Math.floor(Math.random() * 200 * amount)}`.trim()
+                    user.exp += `${Math.floor(Math.random() * 100 * amount)}`.trim()
+                    if (!user.rpg[randCommon]) { //random common item
+                        user.rpg[randCommon] = 0
+                        user.rpg[randCommon] += randomnumCommon}
+                    if (!user.rpg[randUncommon]) { //random uncommon item
+                        user.rpg[randUncommon] = 0
+                        user.rpg[randUncommon] += randomnumUnommon}
+                    if (!user.rpg[randRare]) { //random rare item
+                        user.rpg[randRare] = 0
+                        user.rpg[randRare] += randomnumRare}
+                }
+            break
+            case 'rare':
+                if (user.rare >= amount) {
+                    user.rare -= amount
+                    user.money += `${Math.floor(Math.random() * 350 * amount)}`.trim()
+                    user.exp += `${Math.floor(Math.random() * 250 * amount)}`.trim()
+                    if (!user.rpg[randUncommon]) { //random uncommon item
+                        user.rpg[randUncommon] = 0
+                        user.rpg[randUncommon] += randomnumUnommon}
+                    if (!user.rpg[randRare]) { //random rare item
+                        user.rpg[randRare] = 0
+                        user.rpg[randRare] += randomnumRare}
+                    if (!user.rpg[randEpic]) { //random epic item
+                        user.rpg[randEpic] = 0
+                        user.rpg[randomEpic] += randomnumEpic}
+                }
+            break
+            case 'epic':
+
+                if (user.rare >= amount) {
+
+                    user.rare -= amount
+                    user.money += `${Math.floor(Math.random() * 350 * amount)}`.trim()
+                    user.exp += `${Math.floor(Math.random() * 250 * amount)}`.trim()
+                    if (!user.rpg[randUncommon]) { //random uncommon item
+                        user.rpg[randUncommon] = 0
+                        user.rpg[randUncommon] += randomnumUnommon}
+                    if (!user.rpg[randRare]) { //random rare item
+                        user.rpg[randRare] = 0
+                        user.rpg[randRare] += randomnumRare}
+                    if (!user.rpg[randEpic]) { //random epic item
+                        user.rpg[randEpic] = 0
+                        user.rpg[randomEpic] += randomnumEpic}
+                }
+            break
         }
     } catch (e) {
         console.log(e)

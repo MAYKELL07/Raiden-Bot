@@ -2,6 +2,6 @@ let handler = m => m.reply('*OPEN JASA SEWA BOT*\n\nSewa Sebulan / Grup : 15k\nS
 
 handler.help = ['sewabot']
 handler.tags = ['about']
-handler.command = /^sewabot$/i
+handler.command = /^(sewabot|join)$/i
 
 module.exports = handler
