@@ -31,6 +31,7 @@ module.exports = {
         if (typeof user !== 'object') global.db.data.users[m.sender] = {}
 
         if (user) {
+          if (!('rpg' in user)) user.rpg = {}
           if (!isNumber(user.exp)) user.exp = 0
           if (!isNumber(user.limit)) user.limit = 10
           if (!isNumber(user.healt)) user.healt = 100
@@ -38,7 +39,7 @@ module.exports = {
           if (!isNumber(user.money)) user.money = 0
           if (!isNumber(user.bank)) user.bank = 0
           if (!isNumber(user.banklimit)) user.banklimit = 10000
-          if (!isNumber(user.banklimit)) user.banknote = 0
+          if (!isNumber(user.banknote)) user.banknote = 0
           if (!isNumber(user.lastclaim)) user.lastclaim = 0
           if (!('registered' in user)) user.registered = false
           if (!user.registered) {

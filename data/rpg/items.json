@@ -1,0 +1,10 @@
+{
+    "common":[
+      {"itemName":"potion", "price": 1000},
+      {"itemName":"bone", "price": 50}
+    ],
+    "uncommon":[
+        {"itemName":"potion", "price": 1000},
+        {"itemName":"bone", "price": 50}
+      ]
+    }
