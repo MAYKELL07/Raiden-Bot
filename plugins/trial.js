@@ -4,14 +4,14 @@ let handler = async (m, { conn, text, usedPrefix }) => {
     let [_, code] = text.match(linkRegex) || []
     if (!code) throw 'Link Salah'
     let res = await conn.acceptInvite(code)
-    m.reply(`Berhasil join grup ${res.gid}`).then(() => {
+    m.reply(`Berhasil join grup ${res.gid}\nTrial 5 hari di mulai`).then(() => {
         var jumlahHari = 86400000 * 0.5
         var now = new Date() * 1
         if (now < global.db.data.chats[res.gid].expired) global.db.data.chats[res.gid].expired += jumlahHari
         else global.db.data.chats[res.gid].expired = now + jumlahHari
     })
     await conn.sendButton(res.gid, `
-*${conn.user.name}* adalah bot whatsapp yang dibangun dengan Nodejs, *${conn.user.name}* diundang oleh @${m.sender.split`@`[0]}
+*${conn.user.name}* adalah bot whatsapp yang dibangun dengan Nodejs,\nTrial 5 hari di mulai\n*${conn.user.name}* diundang oleh @${m.sender.split`@`[0]}
     
 ketik *${usedPrefix}menu* untuk melihat daftar perintah`.trim(), '© Raiden', 'Menu', `${usedPrefix}?`, { contextInfo: { mentionedJid: [m.sender] } })
 }
