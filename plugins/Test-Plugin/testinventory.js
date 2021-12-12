@@ -16,4 +16,3 @@ handler.tags = ['rpg']
 handler.command = /^(tinv(entory)?|tlevel(ing)?|te?xp|tbackpack)$/i
 handler.owner = true
 module.exports = handler
-//*${word}: ${data}*
