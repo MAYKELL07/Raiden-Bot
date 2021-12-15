@@ -1,6 +1,6 @@
 {
     "items":[
-      {"itemName":"potion", "price": 1000},
-      {"itemName":"bone", "price": 50}
+      {"rarity":"common", "itemName":"potion", "price": 1000},
+      {"rarity":"common", "itemName":"bone", "price": 50}
     ]
     }
