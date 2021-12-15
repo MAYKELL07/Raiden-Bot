@@ -2,7 +2,7 @@ let { MessageType } = require('@adiwajshing/baileys')
 let handler = async (m, { conn, usedPrefix, DevMode }) => { 
     try { 
         let __timers = (new Date - global.db.data.users[m.sender].lastadventure)
-        let _timers = (300000 - __timers) 
+        let _timers = (300000 - __timers)
         let timers = clockString(_timers)
         if (global.db.data.users[m.sender].healt > 79) {
             if (new Date - global.db.data.users[m.sender].lastadventure > 300000) {
@@ -22,15 +22,6 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let potion = (_potion * 1)
             let _diamond = (rubah == 0 ? pickRandom(['0', '0', '0', '1', '0', '1', '0']) : '' || rubah == 1 ? pickRandom(['0', '0', '0', '1']) : '' || rubah == 2 ? pickRandom(['0', '0', '0', '1', '2']) : '' || rubah == 3 ? pickRandom(['0', '1', '0', '2', '1', '0']) : '' || rubah == 4 ? pickRandom(['0', '0', '1', '2', '1', '1', '0']) : '' || rubah == 5 ? pickRandom(['0', '0', '1', '2', '0', '0', '1', '0']) : '' )
             let diamond = (_diamond * 1)
-            let _common = `${Math.floor(Math.random() * 3)}`.trim()
-            let common = (_common * 1)
-            let _uncommon = `${Math.floor(Math.random() * 2)}`.trim()
-            let uncommon = (_uncommon * 1) 
-            let _mythic = `${pickRandom(['1', '0', '0', '0'])}`
-            let mythic = (_mythic * 0)
-            let _legendary = `${pickRandom(['1', '0', '0', '0', `0`])}`
-            let sampah = `${Math.floor(Math.random() * 300)}`.trim()
-            let legendary = (_legendary * 0)
             let str = `
 Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRandom(['Jepang', 'Korea', 'Bali', 'Amerika', 'Iraq', 'Arab', 'Pakistan', 'German', 'Finlandia', 'Ke bawa dunia mimpi', 'Ujung dunia', 'Mars', 'Bulan', 'Pluto', 'Matahari', 'Hatinya dia', '...'])} dan mendapatkan
 *exp:* ${exp} 
@@ -38,14 +29,6 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRan
 *sampah:* ${sampah}${potion == 0 ? '' : '\n*Potion:* ' + potion + ''}${diamond == 0 ? '' : '\n*diamond:* ' + diamond + ''}${common == 0 ? '' : '\n*common crate:* ' + common + ''}${uncommon == 0 ? '' : '\n*uncommon crate:* ' + uncommon + ''}
 `.trim()
             conn.reply(m.chat, str, m)
-            if (mythic > 0) {
-                   global.db.data.users[m.sender].mythic += mythic * 1
-                   conn.reply(m.chat, '*Selamat anda mendapatkan item Rare yaitu*\n' + mythic + ' Mythic Crate', m)
-            }
-            if (legendary > 0) {
-                global.db.data.users[m.sender].legendary += legendary * 1
-                conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + legendary + ' Legendary Crate', m)
-            }
             global.db.data.users[m.sender].healt -= healt * 1
             global.db.data.users[m.sender].exp += exp * 1
             global.db.data.users[m.sender].money += uang * 1

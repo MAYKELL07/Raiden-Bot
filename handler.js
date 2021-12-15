@@ -115,7 +115,8 @@ module.exports = {
 
         } else global.db.data.users[m.sender] = {
           rpg: {
-
+            fish: {},
+            items: {},
           },
           healt: 100,
           level: 1,

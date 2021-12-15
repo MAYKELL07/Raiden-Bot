@@ -20,7 +20,7 @@ let handler = async (m, { conn, text }) => {
 	let monsterName = monster.name.toUpperCase()
 	let randomizer = `${Math.floor(Math.random() * 101)}`.trim()
     
-	if (player.money > 0) {
+	if (new Date -  global.db.data.users[m.sender].lasthunt > 120000) {
 		let sum = 10 * areaPlayer - 59
 		let dmg = (player.sword  * 5 + player.armor * 5 - sum)
 		dmg = dmg < 0 ? Math.abs(dmg) : 0
@@ -31,9 +31,9 @@ let handler = async (m, { conn, text }) => {
 
 		if (randomizer <= monster.droprate) {
 		//mosnter drop items
-		player.rpg[monsterdrop]
-		if (!player.rpg[monsterdrop]) player.rpg[monsterdrop] = 0
-		player.rpg[monsterdrop] += 1
+		player.rpg.items[monsterdrop]
+		if (!player.rpg.items[monsterdrop]) player.rpg.items[monsterdrop] = 0
+		player.rpg.items[monsterdrop] += 1
 		monsterdroped = `dropped ${monsterdrop}`
 		} else {
 			monsterdroped = `dropped nothing`
@@ -68,9 +68,9 @@ let handler = async (m, { conn, text }) => {
 	} else throw `Tunggu *${cd1}:${cd2}* Untuk Berburu Lagi`
 }
 
-handler.help = ['thunt']
+handler.help = ['hunt']
 handler.tags = ['rpg']
-handler.command = /^thunt/i
+handler.command = /^hunt/i
 
 handler.owner = true
 handler.disabled = false
