@@ -37,6 +37,8 @@ module.exports = {
           if (!isNumber(user.level)) user.level = 1
           if (!isNumber(user.money)) user.money = 0
           if (!isNumber(user.bank)) user.bank = 0
+          if (!isNumber(user.premiumDate)) user.premiumDate = 0
+          if (!'premium' in user) user.premium = false
           if (!isNumber(user.banklimit)) user.banklimit = 10000
           if (!isNumber(user.banklimit)) user.banknote = 0
           if (!isNumber(user.lastclaim)) user.lastclaim = 0
@@ -46,6 +48,7 @@ module.exports = {
             if (!isNumber(user.age)) user.age = -1
             if (!isNumber(user.regTime)) user.regTime = -1
           }
+          if (!isNumber(user.lastseen)) user.lastseen = 0
           if (!isNumber(user.afk)) user.afk = -1
           if (!('afkReason' in user)) user.afkReason = ''
           if (!('banned' in user)) user.banned = false
@@ -126,6 +129,9 @@ module.exports = {
           banklimit: 10000,
           banknote: 0,
           lastrob: 0,
+          lastseen: 0,
+          premium: false,
+          premiumDate: 0,
           diamond: 0,
           iron: 0,
           common: 0,
