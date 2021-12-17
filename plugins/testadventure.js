@@ -25,7 +25,7 @@ let handler = async (m, { conn, text }) => {
     rarityItems = rarityItems[Math.floor(Math.random() * rarityItems.length)]
 	let rarity_items = items.filter(item => { return item.rarity === rarityItems })
 	let item = rarity_items[Math.floor(Math.random() * rarity_items.length)]
-	let itemName = item.name.toUpperCase()
+	let itemName = item.Name.toUpperCase()
 	let randomizer = `${Math.floor(Math.random() * 101)}`.trim()
 	let randomizer2 = `${Math.floor(Math.random() * 101)}`.trim()
     
@@ -48,7 +48,6 @@ let handler = async (m, { conn, text }) => {
 				itemdroped = `you got ${itemName}`
 				} else {
 					itemdroped = `you got nothing`
-				}
 				}
 		} else 	if (randomizer <= monster.droprate) {
 			//mosnter drop items
@@ -88,9 +87,9 @@ let handler = async (m, { conn, text }) => {
 	} else throw `Tunggu *${cd1}:${cd2}* Untuk Berburu Lagi`
 }
 
-handler.help = ['hunt']
+handler.help = ['tadv']
 handler.tags = ['rpg']
-handler.command = /^hunt/i
+handler.command = /^tadv/i
 
 handler.owner = true
 handler.disabled = false
