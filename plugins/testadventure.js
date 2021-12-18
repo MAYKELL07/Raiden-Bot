@@ -30,7 +30,7 @@ let handler = async (m, { conn, text }) => {
 	let randomizer2 = `${Math.floor(Math.random() * 101)}`.trim()
     
 	if (new Date -  global.db.data.users[m.sender].lasthunt > 120000) {
-		let sum = 10 * areaPlayer - 59
+		let sum = 0
 		let dmg = (player.sword  * 5 + player.armor * 5 - sum)
 		dmg = dmg < 0 ? Math.abs(dmg) : 0
 		let coins = areaPlayer * 50
@@ -51,6 +51,7 @@ let handler = async (m, { conn, text }) => {
 				}
 		} else 	if (randomizer <= monster.droprate) {
 			//mosnter drop items
+			let sum = 10 * areaPlayer - 59
 			player.rpg.items[monsterdrop]
 			if (!player.rpg.items[monsterdrop]) player.rpg.items[monsterdrop] = 0
 			player.rpg.items[monsterdrop] += 1
@@ -80,7 +81,7 @@ let handler = async (m, { conn, text }) => {
 		conn.sendMessage(m.chat, pesan, MessageType.text, {
 			contextInfo: {
 			externalAdReply: {
-			title: monsterName,
+			title: `${monstername}${itemName}`,
 			body: monsterdroped,
 			thumbnail: await (await fetch(url)).buffer() ,
 			sourceUrl: 'http://raiden-bot.ga/'}}})
