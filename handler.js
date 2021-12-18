@@ -32,6 +32,7 @@ module.exports = {
 
         if (user) {
           if (!('rpg' in user)) user.rpg = {}
+          if (!('cooldown' in user)) user.cooldown = {}
           if (!isNumber(user.exp)) user.exp = 0
           if (!isNumber(user.limit)) user.limit = 10
           if (!isNumber(user.healt)) user.healt = 100
@@ -57,29 +58,6 @@ module.exports = {
           if (!isNumber(user.pc)) user.pc = 0
           if (!isNumber(user.warning)) user.warning = 0
           if (!('pasangan' in user)) user.pasangan = ''
-          //Misc
-          if (!isNumber(user.lastclaim)) user.lastclaimm = 0  
-          if (!isNumber(user.lastowner)) user.lastowner = 0
-          if (!isNumber(user.lastrob)) user.lastrob = 0
-          if (!isNumber(user.diamond)) user.diamond = 0
-          if (!isNumber(user.iron)) user.iron = 0
-          if (!isNumber(user.common)) user.common = 0
-          if (!isNumber(user.uncommon)) user.uncommon = 0
-          if (!isNumber(user.mythic)) user.mythic = 0
-          if (!isNumber(user.legendary)) user.legendary = 0
-          if (!isNumber(user.pet)) user.pet = 0
-          if (!isNumber(user.potion)) user.potion = 0
-          if (!isNumber(user.sampah)) user.sampah = 0
-          if (!isNumber(user.armor)) user.armor = 0
-          if (!isNumber(user.kucing)) user.kucing = 0
-          if (!isNumber(user.kucinglastclaim)) user.kucinglastclaim = 0
-          if (!isNumber(user.kuda)) user.kuda = 0
-          if (!isNumber(user.kudalastclaim)) user.kudalastclaim = 0
-          if (!isNumber(user.rubah)) user.rubah = 0
-          if (!isNumber(user.rubahlastclaim)) user.rubahlastclaim = 0
-          if (!isNumber(user.anjing)) user.anjing = 0
-          if (!isNumber(user.anjinglastclaim)) user.anjinglastclaim = 0
-
           if (!('banned' in user)) user.banned = false
           if (!isNumber(user.warn)) user.warn = 0
           if (!isNumber(user.warning)) user.warning = 0
@@ -87,33 +65,12 @@ module.exports = {
 
           if (!isNumber(user.afk)) user.afk = -1
           if (!('afkReason' in user)) user.afkReason = ''  
-
-          // RPG
-          if (!isNumber(user.anakkucing)) user.anakkucing = 0
-          if (!isNumber(user.anakkuda)) user.anakkuda = 0
-          if (!isNumber(user.anakrubah)) user.anakrubah = 0
-          if (!isNumber(user.anakanjing)) user.anakanjing = 0
-          if (!isNumber(user.makananpet)) user.makananpet = 0
-          if (!isNumber(user.antispam)) user.antispam = 0
-          if (!isNumber(user.kayu)) user.kayu = 0
-          if (!isNumber(user.batu)) user.batu = 0
-          if (!isNumber(user.string)) user.string = 0
-          if (!isNumber(user.sword)) user.sword = 0
-          if (!isNumber(user.sworddurability)) user.sworddurability = 0
-          if (!isNumber(user.pickaxe)) user.pickaxe = 0
-          if (!isNumber(user.pickaxedurability)) user.pickaxedurability = 0
-          if (!isNumber(user.fishingrod)) user.fishingrod = 0
-          if (!isNumber(user.fishingroddurability)) user.fishingroddurability = 0
-          if (!isNumber(user.lastadventure)) user.lastadventure = 0
-          if (!isNumber(user.lastfishing)) user.lastfishing = 0
-          if (!isNumber(user.lastdungeon)) user.lastdungeon = 0
-          if (!isNumber(user.lastduel)) user.lastduel = 0
-          if (!isNumber(user.lastmining)) user.lastmining = 0
           if (!isNumber(user.lasthunt)) user.lasthunt = 0
-          if (!isNumber(user.lastweekly)) user.lastweekly = 0
-          if (!isNumber(user.lastmonthly)) user.lastmontly = 0
 
         } else global.db.data.users[m.sender] = {
+          cooldown: {
+
+          },
           rpg: {
             fish: {},
             items: {},
@@ -122,55 +79,11 @@ module.exports = {
           level: 1,
           exp: 0,
           limit: 10,
-          lastowner: 0,
           money: 0,
           bank: 0,
           banklimit: 10000,
           banknote: 0,
           lastrob: 0,
-          diamond: 0,
-          iron: 0,
-          common: 0,
-          uncommon: 0,
-          mythic: 0,
-          legendary: 0,
-          pet: 0,
-          potion: 0,
-          sampah: 0,
-          armor: 0,
-          kucing: 0,
-          kucinglastclaim: 0,
-          kuda: 0,
-          kudalastclaim: 0,
-          rubah: 0,
-          rubahlastclaim: 0,
-          anjing: 0,
-          anjinglastclaim: 0,
-          anakkucing: 0,
-          anakkuda: 0,
-          anakrubah: 0,
-          anakanjing: 0,
-          makananpet: 0,
-          antispam: 0,
-          antispamlastclaim: 0,
-          kayu: 0,
-          batu: 0,
-          string: 0,
-          sword: 0,
-          sworddurability: 0,
-          pickaxe: 0,
-          pickaxedurability: 0,
-          fishingrod: 0,
-          fishingroddurability: 0,
-          lastadventure: 0,
-          lastfishing: 0,
-          lastdungeon: 0,
-          lastduel: 0,
-          lastmining: 0,
-          lasthunt: 0,
-          lastweekly: 0,
-          lastmonthly: 0,
-          lastclaim: 0,
           registered: false,
           name: this.getName(m.sender),
           age: -1,
@@ -184,6 +97,7 @@ module.exports = {
           pc: 0,
           warning: 0,
           pasangan: '',
+          lasthunt: 0,
         }
 
         let chat = global.db.data.chats[m.chat]
@@ -436,10 +350,13 @@ module.exports = {
             m.error = e
             console.error(e)
             if (e) {
-              let text = util.format(e.message ? e.message : e)
+              let text = util.format(e)
               for (let key of Object.values(global.APIKeys))
-                text = text.replace(new RegExp(key, 'g'), 'apikey')
-              m.reply(text)
+                text = text.replace(new RegExp(key, 'g'), '#HIDDEN#')
+                if (DevMode && text.length > 100) {
+                  for (let jid of Object.entries(global.Owner).filter(v => v[1].isDev).map(v => v[0].replace(/[^0-9]/g, '') + '@s.whatsapp.net').filter(v => v != conn.user.jid)) m.reply(`*file:* ${m.plugin}\n*Nomor:* ${m.sender}\n*Text:* ${m.text}\n\n\`\`\`${text}\`\`\``, jid)
+                }
+                m.reply(text)
             }
           } finally {
             // m.reply(util.format(_user))

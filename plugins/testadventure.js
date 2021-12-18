@@ -15,7 +15,7 @@ let handler = async (m, { conn, text }) => {
 	let cd2 = Math.ceil(60 - cds)
 
     //monster
-	let areaPlayer = monsters.filter(a => a.area > 1 && a.area < 5)
+	let areaPlayer = monsters.map(v => v.area)
     areaPlayer = areaPlayer[Math.floor(Math.random() * areaPlayer.length)]
 	let area_monsters = monsters.filter(monster => { return monster.area === areaPlayer })
 	let monster = area_monsters[Math.floor(Math.random() * area_monsters.length)]

@@ -8,8 +8,8 @@ let handler = async (m, { conn, text }) => {
 	let player = global.db.data.users[m.sender]
 	let pname = conn.getName(m.sender)
 
-	let cdm = `${MeNit(new Date - player.rpg.lasthunt)}`
-	let cds = `${DeTik(new Date - player.rpg.lasthunt)}`
+	let cdm = `${MeNit(new Date - player.lasthunt)}`
+	let cds = `${DeTik(new Date - player.lasthunt)}`
 	let cd1 = Math.ceil(01 - cdm)
 	let cd2 = Math.ceil(60 - cds)
 
@@ -21,7 +21,7 @@ let handler = async (m, { conn, text }) => {
 	let monsterName = monster.name.toUpperCase()
 	let randomizer = `${Math.floor(Math.random() * 101)}`.trim()
     
-	if (new Date -  global.db.data.users[m.sender].rpg.lasthunt > 120000) {
+	if (new Date -  global.db.data.users[m.sender].lasthunt > 120000) {
 		let sum = 10 * areaPlayer - 59
 		let dmg = (player.sword  * 5 + player.armor * 5 - sum)
 		dmg = dmg < 0 ? Math.abs(dmg) : 0
@@ -42,7 +42,7 @@ let handler = async (m, { conn, text }) => {
 
 
 		player.healt -= dmg
-		player.rpg.lasthunt = new Date * 1 // waktu hunt 2menit
+		player.lasthunt = new Date * 1 // waktu hunt 2menit
 
 		if (player.healt < 0) {
 			let msg = `*${pname}* Anda Mati Di Bunuh Oleh *${monsterName}*`

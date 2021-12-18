@@ -1,4 +1,5 @@
 let fs = require('fs')
+global.DevMode = false
 global.owner = JSON.parse(fs.readFileSync('./data/owner.json')) // Letakan nomor kamu di file /data/owner.json
 global.mods = JSON.parse(fs.readFileSync('./data/moderator.json')) // Moderator?
 global.prems = JSON.parse(fs.readFileSync('./data/premium.json')) // Pengguna premium tidak memerlukan limit
