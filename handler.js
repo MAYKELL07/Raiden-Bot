@@ -66,6 +66,7 @@ module.exports = {
           if (!isNumber(user.afk)) user.afk = -1
           if (!('afkReason' in user)) user.afkReason = ''  
           if (!isNumber(user.lasthunt)) user.lasthunt = 0
+          if (!isNumber(user.lastfishing)) user.lastfishing = 0
 
         } else global.db.data.users[m.sender] = {
           cooldown: {
@@ -98,6 +99,7 @@ module.exports = {
           warning: 0,
           pasangan: '',
           lasthunt: 0,
+          lastfishing: 0,
         }
 
         let chat = global.db.data.chats[m.chat]
