@@ -1,7 +1,7 @@
 let { MessageType } = require('@adiwajshing/baileys')
 
 let handler = async (m, { conn }) => {
-    let user = global.DATABASE._data.users[m.sender]
+    let user = global.db.data.users[m.sender]
     let _timers = (2592000000 - (new Date - user.lastmonthly))
     let timers = clockString(_timers) 
     if (new Date - user.lastmonthly > 2592000000) {
