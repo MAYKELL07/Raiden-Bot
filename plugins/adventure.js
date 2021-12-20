@@ -84,7 +84,7 @@ handler.help = ['adventure']
 handler.tags = ['rpg']
 handler.command = /^adventure/i
 
-handler.owner = true
+handler.owner = false
 handler.disabled = false
 
 handler.fail = null

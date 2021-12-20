@@ -73,7 +73,7 @@ handler.help = ['hunt']
 handler.tags = ['rpg']
 handler.command = /^hunt/i
 
-handler.owner = true
+handler.owner = false
 handler.disabled = false
 
 handler.fail = null

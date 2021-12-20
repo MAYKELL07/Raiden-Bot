@@ -1,32 +1,21 @@
 let levelling = require('../lib/levelling')
 let handler = async (m, { conn, usedPrefix }) => {
     let inventoryy = global.db.data.users[m.sender].rpg
-    let kayu = global.db.data.users[m.sender].kayu
     let healt = global.db.data.users[m.sender].healt
     let armor = global.db.data.users[m.sender].armor 
     let warn = global.db.data.users[m.sender].warn
     let banklimit = global.db.data.users[m.sender].banklimit
-    let banknote = global.db.data.users[m.sender].banknote
     let pet = global.db.data.users[m.sender].pet
-    let fishingrod = global.db.data.users[m.sender].fishingrod
     let kucing = global.db.data.users[m.sender].kucing
     let _kucing = global.db.data.users[m.sender].anakkucing
     let rubah = global.db.data.users[m.sender].rubah
     let _rubah = global.db.data.users[m.sender].anakrubah
     let kuda = global.db.data.users[m.sender].kuda
     let _kuda = global.db.data.users[m.sender].anakkuda
-    let diamond = global.db.data.users[m.sender].diamond
-    let potion = global.db.data.users[m.sender].potion
-    let common = global.db.data.users[m.sender].common
-    let makananpet = global.db.data.users[m.sender].makananpet
-    let uncommon = global.db.data.users[m.sender].uncommon
-    let mythic = global.db.data.users[m.sender].mythic
-    let legendary = global.db.data.users[m.sender].legendary
     let level = global.db.data.users[m.sender].level
     let money = global.db.data.users[m.sender].money
     let bank = global.db.data.users[m.sender].bank
     let exp = global.db.data.users[m.sender].exp
-    let sampah = global.db.data.users[m.sender].sampah
     let { max } = levelling.xpRange(level, exp, global.multiplier)
     let name = m.fromMe ? conn.user : conn.contacts[m.sender]
     let sortedmoney = Object.entries(global.db.data.users).sort((a, b) => b[1].money - a[1].money)
@@ -63,12 +52,7 @@ Exp: *${exp}*\n
 Warn: *${warn}*
 Banned: *No*
 \n${readMore}\n
-${finalstring}
-*Crate*
-Common: *${common}*
-Uncommon: *${uncommon}*
-Mythic: *${mythic}*
-Legendary: *${legendary}*
+${finalstring}\n
 Pet: *${pet}*\n
 *Pet*
 Kuda: *${kuda == 0 ? 'Tidak Punya' : '' || kuda == 1 ? 'Level 1' : '' || kuda == 2 ? 'Level 2' : '' || kuda == 3 ? 'Level 3' : '' || kuda == 4 ? 'Level 4' : '' || kuda == 5 ? 'Level MAX' : ''}*

@@ -32,7 +32,6 @@ module.exports = {
 
         if (user) {
           if (!('rpg' in user)) user.rpg = {}
-          if (!('cooldown' in user)) user.cooldown = {}
           if (!isNumber(user.exp)) user.exp = 0
           if (!isNumber(user.limit)) user.limit = 10
           if (!isNumber(user.healt)) user.healt = 100
@@ -70,11 +69,9 @@ module.exports = {
           if (!('afkReason' in user)) user.afkReason = ''  
           if (!isNumber(user.lasthunt)) user.lasthunt = 0
           if (!isNumber(user.lastfishing)) user.lastfishing = 0
+          if (!isNumber(user.lastadventure)) user.lastadventure = 0
 
         } else global.db.data.users[m.sender] = {
-          cooldown: {
-
-          },
           rpg: {
             fish: {},
             items: {},
@@ -103,6 +100,7 @@ module.exports = {
           pasangan: '',
           lasthunt: 0,
           lastfishing: 0,
+          lastadventure: 0,
         }
 
         let chat = global.db.data.chats[m.chat]
