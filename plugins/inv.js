@@ -1,5 +1,6 @@
 let levelling = require('../lib/levelling')
 let handler = async (m, { conn, usedPrefix }) => {
+    let inventoryy = global.db.data.users[m.sender].rpg
     let kayu = global.db.data.users[m.sender].kayu
     let healt = global.db.data.users[m.sender].healt
     let armor = global.db.data.users[m.sender].armor 
@@ -8,7 +9,6 @@ let handler = async (m, { conn, usedPrefix }) => {
     let banknote = global.db.data.users[m.sender].banknote
     let pet = global.db.data.users[m.sender].pet
     let fishingrod = global.db.data.users[m.sender].fishingrod
-    let fishingroddurability = global.db.data.users[m.sender].fishingroddurability
     let kucing = global.db.data.users[m.sender].kucing
     let _kucing = global.db.data.users[m.sender].anakkucing
     let rubah = global.db.data.users[m.sender].rubah
@@ -27,19 +27,6 @@ let handler = async (m, { conn, usedPrefix }) => {
     let bank = global.db.data.users[m.sender].bank
     let exp = global.db.data.users[m.sender].exp
     let sampah = global.db.data.users[m.sender].sampah
-    let as = global.db.data.users[m.sender].as
-    let paus = global.db.data.users[m.sender].paus
-    let kepiting = global.db.data.users[m.sender].kepiting
-    let gurita = global.db.data.users[m.sender].gurita
-    let cumi = global.db.data.users[m.sender].cumi
-    let buntal = global.db.data.users[m.sender].buntal
-    let dory = global.db.data.users[m.sender].dory
-    let lumba = global.db.data.users[m.sender].lumba
-    let lobster = global.db.data.users[m.sender].lobster
-    let hiu = global.db.data.users[m.sender].hiu
-    let udang = global.db.data.users[m.sender].udang
-    let ikan = global.db.data.users[m.sender].ikan
-    let orca = global.db.data.users[m.sender].orca
     let { max } = levelling.xpRange(level, exp, global.multiplier)
     let name = m.fromMe ? conn.user : conn.contacts[m.sender]
     let sortedmoney = Object.entries(global.db.data.users).sort((a, b) => b[1].money - a[1].money)
@@ -60,6 +47,11 @@ let handler = async (m, { conn, usedPrefix }) => {
     let usersuncommon = sorteduncommon.map(v => v[0])
     let usersmythic = sortedmythic.map(v => v[0])
     let userslegendary = sortedlegendary.map(v => v[0])
+    let word = JSON.stringify(inventoryy).replaceAll (',','\n')
+    let words = word.replaceAll(/["{}]/g,'')
+    let wordss = words.replaceAll(':',' x')
+    let wordsss = wordss.replace("fish x","*FISH*\n")
+    let finalstring = wordsss.replace("items x","*ITEMS*\n")
     let str = `
 Inventory *${name.vnmae || name.notify || name.name || ('+' + name.jid.split`@`[0])}*\n
 Health: *${healt}*
@@ -71,15 +63,7 @@ Exp: *${exp}*\n
 Warn: *${warn}*
 Banned: *No*
 \n${readMore}\n
-*Inventory*
-Fishingrod: *${fishingrod}*
-Kayu: *${kayu}*
-Diamond: *${diamond}*
-Potion: *${potion}*
-Sampah: *${sampah}*
-Makanan Pet: *${makananpet}*
-Banknote: *${banknote}*
-Total inv: *${diamond + potion + sampah + makananpet + banknote + kayu}* item\n
+${finalstring}
 *Crate*
 Common: *${common}*
 Uncommon: *${uncommon}*

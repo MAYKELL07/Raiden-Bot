@@ -1,5 +1,6 @@
 let { MessageType } = require('@adiwajshing/baileys')
 let handler = async (m, { conn, command, args, text, usedPrefix, DevMode }) => {
+    let items = JSON.parse(fs.readFileSync('./data/rpg/items.json')).items
     let massage = `${usedPrefix}open <crate name>`
     let type = (args[0] || '').toLowerCase()
     let amount = (args[1] || '').toLowerCase()

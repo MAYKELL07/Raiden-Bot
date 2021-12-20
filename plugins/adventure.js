@@ -1,88 +1,106 @@
+let fs = require('fs')
 let { MessageType } = require('@adiwajshing/baileys')
-let handler = async (m, { conn, usedPrefix, DevMode }) => { 
-    try { 
-        let __timers = (new Date - global.db.data.users[m.sender].lastadventure)
-        let _timers = (300000 - __timers) 
-        let timers = clockString(_timers)
-        if (global.db.data.users[m.sender].healt > 79) {
-            if (new Date - global.db.data.users[m.sender].lastadventure > 300000) {
-            let armor = global.db.data.users[m.sender].armor
-            let rubah = global.db.data.users[m.sender].rubah
-            let kuda = global.db.data.users[m.sender].kuda
-            let kucing = global.db.data.users[m.sender].kucing
-            let ____health = `${Math.floor(Math.random() * 101)}`.trim()
-            let ___health = (____health * 1)
-            let kucingnya = (kucing == 0? 0 : '' || kucing == 1 ? 5 : '' || kucing == 2 ? 10 : '' || kucing == 3 ? 15 : '' || kucing == 4 ? 21 : ''  || kucing == 5 ? 30 : '')
-            let armornya = (armor == 0 ? 0 : '' || armor == 1 ? 5 : '' || armor == 2 ? 10 : '' || armor == 3 ? 15 : '' || armor == 4 ? 21 : '' || armor == 5 ? 30 : '')
-            let __health = (___health > 60 ? ___health - kucingnya - armornya : ___health)
-            let healt = (kucing == 0 && armor == 0 ? pickRandom(['100', '99', '98', '97', '96', '95', '94', '93', '92', '91', '90']) : kucing > 0 && armor > 0 ? __health : ___health)
-            let exp = (Math.floor(Math.random() * 600) + (kuda * 70))
-            let uang = `${Math.floor(Math.random() * 800)}`.trim() 
-            let _potion = `${Math.floor(Math.random() * 2)}`.trim()
-            let potion = (_potion * 1)
-            let _diamond = (rubah == 0 ? pickRandom(['0', '0', '0', '1', '0', '1', '0']) : '' || rubah == 1 ? pickRandom(['0', '0', '0', '1']) : '' || rubah == 2 ? pickRandom(['0', '0', '0', '1', '2']) : '' || rubah == 3 ? pickRandom(['0', '1', '0', '2', '1', '0']) : '' || rubah == 4 ? pickRandom(['0', '0', '1', '2', '1', '1', '0']) : '' || rubah == 5 ? pickRandom(['0', '0', '1', '2', '0', '0', '1', '0']) : '' )
-            let diamond = (_diamond * 1)
-            let _common = `${Math.floor(Math.random() * 3)}`.trim()
-            let common = (_common * 1)
-            let _uncommon = `${Math.floor(Math.random() * 2)}`.trim()
-            let uncommon = (_uncommon * 1) 
-            let _mythic = `${pickRandom(['1', '0', '0', '0'])}`
-            let mythic = (_mythic * 0)
-            let _legendary = `${pickRandom(['1', '0', '0', '0', `0`])}`
-            let sampah = `${Math.floor(Math.random() * 300)}`.trim()
-            let legendary = (_legendary * 0)
-            let str = `
-Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRandom(['Jepang', 'Korea', 'Bali', 'Amerika', 'Iraq', 'Arab', 'Pakistan', 'German', 'Finlandia', 'Ke bawa dunia mimpi', 'Ujung dunia', 'Mars', 'Bulan', 'Pluto', 'Matahari', 'Hatinya dia', '...'])} dan mendapatkan
-*exp:* ${exp} 
-*uang:* ${uang}
-*sampah:* ${sampah}${potion == 0 ? '' : '\n*Potion:* ' + potion + ''}${diamond == 0 ? '' : '\n*diamond:* ' + diamond + ''}${common == 0 ? '' : '\n*common crate:* ' + common + ''}${uncommon == 0 ? '' : '\n*uncommon crate:* ' + uncommon + ''}
-`.trim()
-            conn.reply(m.chat, str, m)
-            if (mythic > 0) {
-                   global.db.data.users[m.sender].mythic += mythic * 1
-                   conn.reply(m.chat, '*Selamat anda mendapatkan item Rare yaitu*\n' + mythic + ' Mythic Crate', m)
+let fetch = require('node-fetch')
+let handler = async (m, { conn, text }) => {
+//read data
+    let monsters = JSON.parse(fs.readFileSync('./data/rpg/monster.json')).monsters
+	let items = JSON.parse(fs.readFileSync('./data/rpg/items.json')).items
+//player data
+    let player = global.db.data.users[m.sender]
+	let pname = conn.getName(m.sender)
+//cooldown reader
+    let cdm = `${MeNit(new Date - player.lastadventure)}`
+	let cds = `${DeTik(new Date - player.lastadventure)}`
+	let cd1 = Math.ceil(01 - cdm)
+	let cd2 = Math.ceil(60 - cds)
+//result variable
+    let coins = player.level * 50
+    let exp = player.level * 20
+    let location = pickRandom(['indonesia','jepang','america','china','australia'])
+    let result1 = `tidak menemukan apa-apa`
+    let result2 = `mendapatkan ${new Intl.NumberFormat('en-US').format(coins)} coins & ${new Intl.NumberFormat('en-US').format(exp)} XP`
+    let result3 = ``
+    let url = `https://static.wikia.nocookie.net/terraria_gamepedia/images/7/7e/Blood_Crawler.png/revision/latest/scale-to-width-down/60?cb=20200804000419&format=original`
+//randomizer
+    let randomizer = `${Math.floor(Math.random() * 101)}`.trim()
+//item and monster data fetch
+    if (new Date -  global.db.data.users[m.sender].lastadventure > 120000) {
+        if (randomizer < 50) {
+//Item get data//
+            let rarityitems = items.filter(({ rarity })=> rarity == 'uncommon' || rarity == 'common')
+            let item = rarityitems[Math.floor(Math.random() * rarityitems.length)]
+            let itemname = item.name.toUpperCase()
+            result3 = `you found nothing`
+            let itemamount = `${Math.floor(Math.random() * 5 * player.level)}`.trim()
+//item chance data read and write
+            if (randomizer <= item.chance) {
+                player.rpg.items[itemname]
+				if (!player.rpg.items[itemname]) player.rpg.items[itemname] = 0
+				player.rpg.items[itemname] += itemamount
+                result1 = ``
+                result3 = `menemukan ${itemname} x${itemamount}`
+                //url = item.url
             }
-            if (legendary > 0) {
-                global.db.data.users[m.sender].legendary += legendary * 1
-                conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + legendary + ' Legendary Crate', m)
-            }
-            global.db.data.users[m.sender].healt -= healt * 1
-            global.db.data.users[m.sender].exp += exp * 1
-            global.db.data.users[m.sender].money += uang * 1
-            global.db.data.users[m.sender].potion += potion * 1
-            global.db.data.users[m.sender].diamond += diamond * 1
-            global.db.data.users[m.sender].common += common * 1 
-            global.db.data.users[m.sender].uncommon += uncommon * 1
-            global.db.data.users[m.sender].sampah += sampah * 1
-            global.db.data.users[m.sender].lastadventure = new Date * 1
-            } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba *${timers}* lagi`, m)
-        } else conn.reply(m.chat, 'Minimal 80 health untuk bisa berpetualang, beli nyawa dulu dengan ketik *' + usedPrefix + 'shop buy potion <jumlah>*\ndan ketik *' + usedPrefix + 'use potion <jumlah>*\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*', m)
-    } catch (e) {
-        console.log(e)
-        conn.reply(m.chat, 'Error', m)
-        if (DevMode) {
-            let file = require.resolve(__filename)
-            for (let jid of global.owner.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').filter(v => v != conn.user.jid)) {
-                conn.sendMessage(jid, file + ' error\nNo: *' + m.sender.split`@`[0] + '*\nCommand: *' + m.text + '*\n\n*' + e + '*', MessageType.text)
+        } else {
+//Monster get data//
+            let area_monsters = monsters.filter(({ area })=> area <= 3)
+            let monster = area_monsters[Math.floor(Math.random() * area_monsters.length)]
+            let monstername = monster.name.toUpperCase()
+//data read and write
+            let sum = monster.area
+            let dmg = (player.sword  * 5 + player.armor * 5 - sum)
+            dmg = dmg < 0 ? Math.abs(dmg) : 0
+            player.healt -= dmg
+            let monsterdrop = monster.drop
+            result3 = monstername
+            url = monster.url
+            if (player.healt < 0) {
+                if (randomizer <= monster.droprate)
+                    player.rpg.items[monsterdrop]
+                    if (!player.rpg.items[monsterdrop]) player.rpg.items[monsterdrop] = 0
+                    player.rpg.items[monsterdrop] += 1
+                    result1 = `menemukan dan membunuh *${monstername}*`
+                    result2 = `mendapatkan ${monsterdrop}\n${new Intl.NumberFormat('en-US').format(coins)} coins & ${new Intl.NumberFormat('en-US').format(exp)} XP`
+            } else {
+                player.healt = 0
+                result1 = `menemukan *${monstername}* tapi gagal membunuhnya`
             }
         }
-    }
+        player.money += coins * player.level
+		player.exp += exp * player.level
+        player.lastadventure = new Date * 1
+        let pesan = `*${pname}* menjelajah sampai *${location}* dan ${result1} *${result2}*`
+        conn.sendMessage(m.chat, pesan, MessageType.text, { //send massage
+			contextInfo: {
+			externalAdReply: {
+			title: result3,
+			body: result1,
+			thumbnail: await (await fetch(url)).buffer() ,
+			sourceUrl: 'http://raiden-bot.ga/'}}})
+    } else throw `Tunggu *${cd1}:${cd2}* Untuk Adventure Lagi`
 }
-handler.help = ['adventure', 'petualang', 'berpetualang', 'mulung', 'work']
+
+handler.help = ['adventure']
 handler.tags = ['rpg']
-handler.command = /^(adventure|(ber)?petualang(ang)?|mulung|work)$/i
+handler.command = /^adventure/i
+
+handler.owner = true
+handler.disabled = false
 
 handler.fail = null
 
 module.exports = handler
 
+function MeNit(ms) {
+	let m = isNaN(ms) ? '02' : Math.floor(ms / 60000) % 60
+	return [m].map(v => v.toString().padStart(2, 0)).join(':')
+}
+
+function DeTik(ms) {
+	let s = isNaN(ms) ? '60' : Math.floor(ms / 1000) % 60
+	return [s].map(v => v.toString().padStart(2, 0)).join(':')
+}
+
 function pickRandom(list) {
-    return list[Math.floor(Math.random() * list.length)]
-}
-function clockString(ms) {
-  let h = Math.floor(ms / 3600000)
-  let m = Math.floor(ms / 60000) % 60
-  let s = Math.floor(ms / 1000) % 60
-  console.log({ms,h,m,s})
-  return [h, m, s].map(v => v.toString().padStart(2, 0) ).join(':')
-}
+	return list[Math.floor(Math.random() * list.length)]
+  }
