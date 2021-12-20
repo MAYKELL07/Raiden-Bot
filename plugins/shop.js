@@ -371,6 +371,7 @@ Sampah:     ${Ssampah}\n\n
 
 handler.help = ['shop <sell|buy> <args>', 'toko <sell|buy> <args>']
 handler.tags = ['rpg']
+handler.owner = true
     
 handler.command = /^(shop|toko|buy|beli|sell|jual)$/i
 module.exports = handler
