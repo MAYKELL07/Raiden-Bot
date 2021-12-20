@@ -7,7 +7,8 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
     let player = global.db.data.users[m.sender]
     let amount = args[2]
     let itemname = item.name
-    if (args[0] == "buy") {
+    try {
+    if (/buy|beli/i.test(command)) {
         if (args[1] == item ) {
             if (item.price = 0) {
                 m.reply(`kamu tidak bisa membeli *${itemname}*`)
@@ -16,7 +17,8 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
             if (!player.rpg.items[itemname]) player.rpg.items[itemname] = 0
             player.money -= (item.price * amount)
             player.rpg.items[itemname] += amount 
-            }
+            m.reply(`berhasil membeli ${item}`)
+            } else {m.replt(`uang mu tidak cukup untuk membeli ${item}`)}
         } else throw 'mau beli apa mas?'
     }
     } catch (e) {
