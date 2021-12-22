@@ -1,1 +1,32 @@
-﻿const _0x27d248=_0x3360;(function(_0x4c01c7,_0x5c3a51){const _0x336b63=_0x3360,_0x12e50e=_0x4c01c7();while(!![]){try{const _0x37fd2b=parseInt(_0x336b63(0xca))/0x1*(parseInt(_0x336b63(0xcc))/0x2)+parseInt(_0x336b63(0xa7))/0x3*(parseInt(_0x336b63(0xad))/0x4)+-parseInt(_0x336b63(0xb1))/0x5*(-parseInt(_0x336b63(0xbc))/0x6)+-parseInt(_0x336b63(0xb9))/0x7+parseInt(_0x336b63(0xb8))/0x8*(-parseInt(_0x336b63(0xb2))/0x9)+-parseInt(_0x336b63(0xab))/0xa*(parseInt(_0x336b63(0xb3))/0xb)+parseInt(_0x336b63(0xcd))/0xc;if(_0x37fd2b===_0x5c3a51)break;else _0x12e50e['push'](_0x12e50e['shift']());}catch(_0x4976e6){_0x12e50e['push'](_0x12e50e['shift']());}}}(_0x4ec8,0x8f4be));function _0x3360(_0x20434d,_0x25daae){const _0x4ec8ee=_0x4ec8();return _0x3360=function(_0x336007,_0x573428){_0x336007=_0x336007-0xa7;let _0x153505=_0x4ec8ee[_0x336007];return _0x153505;},_0x3360(_0x20434d,_0x25daae);}function _0x4ec8(){const _0x183916=['modifyChat','chats','5HzVELV','9PImJFl','2024cdakzP','@s.whatsapp.net','user','antivirtex','exports','4047128sALVNK','1266916RxXYdU','trim','getName','256044XdRHUA','fromMe','delete','length','sender','*「\x20ANTI\x20VIRTEX\x20」*\x20\x0a\x0aTerdeteksi\x20*','\x0aNama:\x20','*\x0atelah\x20mengirim\x20virtex!\x0a\x0aMaaf\x20Kamu\x20akan\x20dikick\x20dari\x20grup\x20ini!','split','groupRemove','owner','\x0aPelaku\x20pengirim\x20virtex\x20@','isBaileys','data','32207DsauTe','all','66NglMIn','353592HOvwsv','275067QdRamy','contacts','isGroup','reply','2420yQPcHq','chat','8FeOZEO','welcome'];_0x4ec8=function(){return _0x183916;};return _0x4ec8();}let handler=_0x145f66=>_0x145f66;handler[_0x27d248(0xcb)]=async function(_0xb7fc5d,{isBotAdmin:_0x5ccd42}){const _0x226b3a=_0x27d248;let _0x1babf5=_0xb7fc5d[_0x226b3a(0xbd)]?conn[_0x226b3a(0xb5)]:conn[_0x226b3a(0xa8)][_0xb7fc5d['sender']];if(!db[_0x226b3a(0xc9)][_0x226b3a(0xb0)][_0x226b3a(0xb6)])return;if(!_0xb7fc5d[_0x226b3a(0xc8)]&&!_0x5ccd42&&_0xb7fc5d['text'][_0x226b3a(0xbf)]>0x125c){conn[_0x226b3a(0xaa)](_0xb7fc5d[_0x226b3a(0xac)],_0x226b3a(0xc1)+('+'+_0x1babf5['jid'][_0x226b3a(0xc4)]`@`[0x0])+_0x226b3a(0xc3),_0xb7fc5d),await this[_0x226b3a(0xc5)](_0xb7fc5d[_0x226b3a(0xac)],[_0xb7fc5d[_0x226b3a(0xc0)]]),await this[_0x226b3a(0xaf)](_0xb7fc5d[_0x226b3a(0xac)],_0x226b3a(0xbe));if(_0xb7fc5d[_0x226b3a(0xa9)])global['db']['data'][_0x226b3a(0xb0)][_0xb7fc5d[_0x226b3a(0xac)]][_0x226b3a(0xae)]=![];this['reply'](global[_0x226b3a(0xc6)][0x0]+_0x226b3a(0xb4),(_0x226b3a(0xc7)+_0xb7fc5d['sender'][_0x226b3a(0xc4)]`@`[0x0]+'\x0aID:\x20'+(_0xb7fc5d['isGroup']?_0xb7fc5d[_0x226b3a(0xac)]:_0xb7fc5d[_0x226b3a(0xc0)])+_0x226b3a(0xc2)+(_0xb7fc5d[_0x226b3a(0xa9)]?this['getName'](_0xb7fc5d[_0x226b3a(0xac)]):this[_0x226b3a(0xbb)](_0xb7fc5d[_0x226b3a(0xc0)]))+'\x0a')[_0x226b3a(0xba)](),null,{'contextInfo':{'mentionedJid':[_0xb7fc5d[_0x226b3a(0xc0)]]}});}},module[_0x27d248(0xb7)]=handler;
+﻿let handler = m => m
+handler.before = async (m, {
+  conn,
+  isBotAdmin,
+  antiVirtex,
+  isAdmin
+}) => {
+  if (m.isGroup && !isAdmin && antiVirtex && isBotAdmin && (m.text.match(/(ผิดุท้่เึางืผิดุท้่เึางื|৭৭৭৭৭৭৭৭|๒๒๒๒๒๒๒๒|๑๑๑๑๑๑๑๑|ดุท้่เึางืผิดุท้่เึางื|𐎑⃢𝘼𝙩𝙩𝙖𝙘𝙠|۩꦳|ผิดุท้เึางื)/gi) || m.text.length >= 5000)) {
+    conn.groupRemove(m.chat, [m.sender], m)
+    conn.blockUser(m.sender, "add")
+    conn.modifyChat(m.chat, 'delete')
+    conn.reply(m.chat, `\n`.repeat(100)).then(() => {
+      conn.reply(m.chat, `*Ada virtex, tanda telah dibaca dulu.*\n*Jangan lupa bersihkan chat.*`)
+      conn.reply(owner[0] + "@s.whatsapp.net", `*❏ Virtex Detected from @${m.sender.split('@')[0]} on group ${conn.getName(m.chat)}*`, null, {
+        contextInfo: {
+          mentionedJid: [m.sender]
+        }
+      })
+    })
+  } else if (!m.isGroup && (m.text.match(/(৭৭৭৭৭৭৭৭|๒๒๒๒๒๒๒๒|๑๑๑๑๑๑๑๑|ดุท้่เึางืผิดุท้่เึางื|𐎑⃢𝘼𝙩𝙩𝙖𝙘𝙠|۩꦳|ผิดุท้เึางื)/gi) || m.text.length >= 5000)) {
+    conn.blockUser(m.sender, "add").then(() => {
+      conn.modifyChat(m.chat, 'delete').then(() => {
+        conn.reply(owner[0] + "@s.whatsapp.net", `*❏ Virtex Detected From @${m.sender.split('@')[0]}*`, null, {
+          contextInfo: {
+            mentionedJid: [m.sender]
+          }
+        })
+      })
+    })
+  }
+}
+module.exports = handler

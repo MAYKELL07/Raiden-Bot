@@ -43,6 +43,7 @@ module.exports = {
           if (!isNumber(user.banklimit)) user.banklimit = 10000
           if (!isNumber(user.banknote)) user.banknote = 0
           if (!isNumber(user.lastclaim)) user.lastclaim = 0
+          if (!isNumber(user.lastseen)) user.lastseen = 0
           if (!('registered' in user)) user.registered = false
           if (!user.registered) {
             if (!('name' in user)) user.name = this.getName(m.sender)
@@ -64,9 +65,7 @@ module.exports = {
           if (!isNumber(user.warn)) user.warn = 0
           if (!isNumber(user.warning)) user.warning = 0
           if (!isNumber(user.call)) user.call = 0  
-
-          if (!isNumber(user.afk)) user.afk = -1
-          if (!('afkReason' in user)) user.afkReason = ''  
+          //cooldown  
           if (!isNumber(user.lasthunt)) user.lasthunt = 0
           if (!isNumber(user.lastfishing)) user.lastfishing = 0
           if (!isNumber(user.lastadventure)) user.lastadventure = 0
@@ -84,12 +83,14 @@ module.exports = {
           bank: 0,
           banklimit: 10000,
           banknote: 0,
-          lastrob: 0,
+          lastseen: 0,
           registered: false,
           name: this.getName(m.sender),
           age: -1,
           regTime: -1,
           afk: -1,
+          premium: false,
+          premiumDate: 0,
           afkReason: '',
           banned: false,
           call: 0,
@@ -98,6 +99,7 @@ module.exports = {
           pc: 0,
           warning: 0,
           pasangan: '',
+          lastrob: 0,
           lasthunt: 0,
           lastfishing: 0,
           lastadventure: 0,
