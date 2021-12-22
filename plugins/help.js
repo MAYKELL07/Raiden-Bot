@@ -7,6 +7,7 @@ let handler  = async (m, { conn, participants }) => {
     const delay = time => new Promise(res=>setTimeout(res,time));
   
     conn.sendFile(m.chat, pp, 'profile.jpg',`*TUTORIAL MENGGUNAKAN BOT*
+  ${readMore}
   1. SPAM ? TELP/VC ? Auto Banned ! Bot menanggapi perintah setiap 5 detik, jadi SANTAY GAN
   2. Untuk melihat daftar command, silahkan ketik *.menu* (Cek status bot ? ketik "bot")
   3. Bot selalu aktif, jika bot tidak merespon artinya bot sedang maintenance (kalaunpun ada sesuatu, akan diinfo oleh owner)
@@ -32,13 +33,11 @@ let handler  = async (m, { conn, participants }) => {
     await delay(2500)
   
     if (users.isAdmin || users.isSuperAdmin) conn.sendFile(m.chat, pp, 'profile.jpg', `*TUTORIAL UNTUK ADMIN GC*
+    ${readMore}
   1. Silahkan lihat menu khusus admin di bagian *ADMIN GROUP* (ketik .menu)
   2. Baca kembali menu dan silahkan dicoba-coba saja (terutama untuk fitur welcome dan leave / UCAPAN OTOMATIS)
   3. Perhatikan kembali untuk fitur dibawah ini :
       .sider (member yang tidak aktif selama lebih dari 10 hari)
-      .sampah (member yang tidak pernah muncul sejak pertama kali join)
-      .tai (member yang dibanned oleh bot)
-      .antiasing (kick member dengan nomor selain +62)
   *(+) Hati hati dalam menggunakan _.kicksider_ karena butuh beberapa hari agar bot dapat mengenali sider !*
   `,m)
   }
@@ -50,8 +49,9 @@ let handler  = async (m, { conn, participants }) => {
   handler.premium = false
   handler.group = false
   handler.private = false
-  handler.exp = 250
   handler.admin = false
   handler.botAdmin = false
   handler.fail = null
   module.exports = handler
+
+  const readMore = more.repeat(4001)

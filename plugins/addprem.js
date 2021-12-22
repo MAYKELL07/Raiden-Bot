@@ -19,9 +19,9 @@ let handler = async (m, { conn, text }) => {
   conn.reply(hl[0],`*❏ UPGRADE PREMIUM*\n\nBerhasil menambahkan akses premium kepada *@${hl[0].split('@')[0]}* selama *${hl[1]} hari*.\n\n*Premium : ${msToDate(global.DATABASE.data.users[hl[0]].premiumDate - now)}*`,m,{ contextInfo: { mentionedJid: [hl[0]] } }) 
 
 }
-handler.help = ['prem *@tag,days*']
+handler.help = ['addprem *@tag,days*']
 handler.tags = ['owner']
-handler.command = /^(prem)$/i
+handler.command = /^(addprem)$/i
 handler.owner = true
 handler.fail = null
 module.exports = handler

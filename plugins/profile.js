@@ -26,9 +26,11 @@ let handler = async (m, { conn, usedPrefix }) => {
         role: 'Warrior V',
         autolevelup: false,
         pc: 0,
+        premium: false,
+        premiumdate: 0,
       }
     }
-    let { name, limit, exp, lastclaim, registered, regTime, age, level, role, banned } = global.db.data.users[who]
+    let { name, limit, exp, lastclaim, registered, regTime, age, level, role, banned, premium, premiumdate } = global.db.data.users[who]
     let { min, xp, max } = levelling.xpRange(level, global.multiplier)
     let username = conn.getName(who)
     let math = max - xp
@@ -40,7 +42,7 @@ XP: TOTAL ${exp} (${exp - min} / ${xp}) [${math <= 0 ? `Siap untuk *${usedPrefix
 Level: ${level}
 Role: *${role}*
 Limit: ${limit}
-Premium: ${prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender) ? 'Ya' : 'Tidak'}
+Premium: ${premium? 'Ya (' + new Date(premiumdate).toLocaleString() + ')' : 'Tidak'}
 Terdaftar: ${registered ? 'Ya (' + new Date(regTime).toLocaleString() + ')' : 'Tidak'}${lastclaim > 0 ? '\nTerakhir Klaim: ' + new Date(lastclaim).toLocaleString() : ''}
 `.trim()
     let mentionedJid = [who]

@@ -46,7 +46,7 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
 
 handler.help = ['buy <args>', 'sell <args>']
 handler.tags = ['rpg']
-handler.owner = true
+handler.owner = false
     
 handler.command = /^(buy|beli|sell|jual)$/i
 module.exports = handler
