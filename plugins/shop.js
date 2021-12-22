@@ -44,11 +44,11 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
     }
 }
 
-handler.help = ['buy <args>', 'sell <args>']
+handler.help = ['buy <args>', 'sell <args>', 'itemlist']
 handler.tags = ['rpg']
 handler.owner = false
     
-handler.command = /^(buy|beli|sell|jual)$/i
+handler.command = /^(buy|beli|sell|jual|itemlist|hargaitem)$/i
 module.exports = handler
 
 function percentCalculation(a, b){
