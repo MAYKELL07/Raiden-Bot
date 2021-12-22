@@ -13,7 +13,7 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
     let sellprice = item.price * (amount * 1)
     sellprice = Math.floor(percentCalculation(sellprice, 25))
     if (/itemlist|hargaitem/i.test(command)) {
-        m.reply(items)
+        m.reply(`*list item masih tahap beta*\n\nharga jual di kurangi 25%\n\n${items}`)
     }
     if (/buy|beli/i.test(command)) {
         if (item) {
