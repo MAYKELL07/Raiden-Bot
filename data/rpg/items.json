@@ -1,9 +1,11 @@
 {
     "items":[
-      {"rarity":"common", "name":"potion", "chance": 50, "price": 1000},
-      {"rarity":"common", "name":"bone", "chance": 50, "price": 50},
-      {"rarity":"uncommon", "name":"rock", "chance": 50, "price": 50},
-      {"rarity":"rare", "name":"mythic chest", "chance": 15, "price": 0},
-      {"rarity":"epic", "name":"legendary chest", "chance": 5, "price": 0}
+      {"rarity":"common", "name":"Bone", "chance": 50, "price": 150},
+      {"rarity":"common", "name":"Rock", "chance": 50, "price": 150},
+      {"rarity":"common", "name":"Wood", "chance": 50, "price": 150},
+      {"rarity":"uncommon", "name":"Antlion Mandible", "chance": 50, "price": 550},
+      {"rarity":"uncommon", "name":"Potion", "chance": 50, "price": 1000},
+      {"rarity":"rare", "name":"Mythic chest", "chance": 15, "price": 0},
+      {"rarity":"epic", "name":"Legendary chest", "chance": 5, "price": 0}
     ]
     }

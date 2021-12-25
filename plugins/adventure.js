@@ -5,6 +5,7 @@ let handler = async (m, { conn, text }) => {
 //read data
     let monsters = JSON.parse(fs.readFileSync('./data/rpg/monster.json')).monsters
 	let items = JSON.parse(fs.readFileSync('./data/rpg/items.json')).items
+    let itemarray = pickRandom(['Potion','Rock','Wood'])
 //player data
     let player = global.db.data.users[m.sender]
 	let pname = conn.getName(m.sender)
@@ -26,21 +27,20 @@ let handler = async (m, { conn, text }) => {
 //item and monster data fetch
     if (new Date -  global.db.data.users[m.sender].lastadventure > 120000) {
         if (randomizer < 50) {
-//Item get data//
-            let rarityitems = items.filter(({ rarity })=> rarity == 'uncommon' || rarity == 'common')
-            let item = rarityitems[Math.floor(Math.random() * rarityitems.length)]
-            let itemname = item.name.toUpperCase()
+//Item get data
+            let item = items.filter(({ name })=> name == itemarray)[0]
+            m.reply(require('util').format(items))
+            m.reply(require('util').format(item))
+            let itemname = item.name
             result3 = `you found nothing`
             let itemamount = `${Math.floor(Math.random() * 5 * player.level)}`.trim()
-//item chance data read and write
-            if (randomizer <= item.chance) {
-                player.rpg.items[itemname]
-				if (!player.rpg.items[itemname]) player.rpg.items[itemname] = 0
-				player.rpg.items[itemname] += itemamount
-                result1 = ``
-                result3 = `menemukan ${itemname} x${itemamount}`
-                //url = item.url
-            }
+//item data read and write
+            player.rpg.items[itemname]
+            if (!player.rpg.items[itemname]) player.rpg.items[itemname] = 0
+            player.rpg.items[itemname] += itemamount
+            result1 = `menemukan ${itemname} x${itemamount}\n`
+            result3 = `menemukan ${itemname} x${itemamount}`
+            //url = item.url
         } else {
 //Monster get data//
             let area_monsters = monsters.filter(({ area })=> area <= 3)
