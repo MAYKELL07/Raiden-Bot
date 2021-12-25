@@ -31,14 +31,14 @@ let handler = async (m, { conn, text }) => {
             let item = items.filter(({ name })=> name == itemarray)[0]
             let itemname = item.name
             result3 = `you found nothing`
-            let itemamount = `${Math.floor(Math.random() * 5 * player.level)}`.trim()
+            let itemamount = `${Math.floor(Math.random() * 5 * player.level + 1)}`.trim()
 //item data read and write
             player.rpg.items[itemname]
             if (!player.rpg.items[itemname]) player.rpg.items[itemname] = 0
             player.rpg.items[itemname] += itemamount
             result1 = `menemukan ${itemname} x${itemamount}\n`
             result3 = `menemukan ${itemname} x${itemamount}`
-            //url = item.url
+            url = item.url
         } else {
 //Monster get data//
             let area_monsters = monsters.filter(({ area })=> area <= 3)
@@ -57,7 +57,7 @@ let handler = async (m, { conn, text }) => {
                     player.rpg.items[monsterdrop]
                     if (!player.rpg.items[monsterdrop]) player.rpg.items[monsterdrop] = 0
                     player.rpg.items[monsterdrop] += 1
-                    result1 = `menemukan dan membunuh *${monstername}*`
+                    result1 = `menemukan dan membunuh *${monstername}* -${dmg}Hp`
                     result2 = `mendapatkan ${monsterdrop}\n${new Intl.NumberFormat('en-US').format(coins)} coins & ${new Intl.NumberFormat('en-US').format(exp)} XP`
             } else {
                 player.healt = 0
