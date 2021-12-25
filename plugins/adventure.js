@@ -29,8 +29,6 @@ let handler = async (m, { conn, text }) => {
         if (randomizer < 50) {
 //Item get data
             let item = items.filter(({ name })=> name == itemarray)[0]
-            m.reply(require('util').format(items))
-            m.reply(require('util').format(item))
             let itemname = item.name
             result3 = `you found nothing`
             let itemamount = `${Math.floor(Math.random() * 5 * player.level)}`.trim()
