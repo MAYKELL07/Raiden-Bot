@@ -32,6 +32,7 @@ let handler = async (m, { conn, text }) => {
             let itemname = item.name
             result3 = `you found nothing`
             let itemamount = `${Math.floor(Math.random() * 5 * player.level + 1)}`.trim()
+            itemamount * 1
 //item data read and write
             player.rpg.items[itemname]
             if (!player.rpg.items[itemname]) player.rpg.items[itemname] = 0
