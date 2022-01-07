@@ -6,10 +6,11 @@ handler.all = async function (m, { isBlocked }) {
     if (isBlocked) return
     if (m.isBaileys) return
     if (m.chat.endsWith('broadcast')) return
+    let user = global.db.data.users[m.sender]
     let setting = db.data.settings[this.user.jid]
     let { isBanned } = db.data.chats[m.chat]
     let { banned } = db.data.users[m.sender]
-
+    // clean database if value is 0
     // ketika ditag
     try {
         if (m.mentionedJid.includes(this.user.jid) && m.isGroup) {

@@ -1,26 +1,34 @@
 let fs = require('fs')
 let { MessageType } = require('@adiwajshing/baileys')
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
+    try {
+    //variable
     let items = JSON.parse(fs.readFileSync('./data/rpg/items.json')).items
     let str = args[0]
+    let numstr = args[1]
+    //is args 1 and 2 is an word or number?
+    if(isNaN(numstr)){
+        numstr = " " + numstr
+        str = str.concat(numstr)
+        numstr = args[2]
+      }
     let arr = str.split(" ");
     for (var i = 0; i < arr.length; i++) {
         arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
-    
     }
     let str1 = arr.join(" ");
-    console.log(str1)
+    //change name to uppercase and merge
     let item = items.find(({ name })=> name == str1)
     let player = global.db.data.users[m.sender]
+    //itemlist
+    let listname = items.name
+    let listprice = items.price
+    //call item amount,price and -percentage
     let amount = args[1] || 1
     let itemname = item?.name
     let totalprice = item?.price * (amount * 1)
     let sellprice = item?.price * (amount * 1)
     sellprice = Math.floor(percentCalculation(sellprice, 10))
-    if (/itemlist|hargaitem/i.test(command)) {
-        m.reply(`*list item masih tahap beta*\n\nharga jual di kurangi 25%`)
-    }
-    try {
     if (/buy|beli/i.test(command)) {
         if (item) {
             if (!item.price) {
@@ -46,7 +54,8 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
         } else throw `mau jual apa mas?`
     }
     } catch (e) {
-        throw `ketik .itemlist untuk melihat harga item!`
+        if (args[0]) {throw `${args[0]} tidak ada di item list`}
+        throw `ketik .itemlist untuk melihat list item!`
     }
 }
 

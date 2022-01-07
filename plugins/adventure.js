@@ -30,14 +30,14 @@ let handler = async (m, { conn, text }) => {
 //Item get data
             let item = items.filter(({ name })=> name == itemarray)[0]
             let itemname = item.name
+            let itemamount = `${Math.floor(Math.random() * 4 + 1)}`.trim()
+            itemamount = itemamount * (player.level * 1)
             result3 = `you found nothing`
-            let itemamount = `${Math.floor(Math.random() * 5 * player.level + 1)}`.trim()
-            itemamount * 1
 //item data read and write
             player.rpg.items[itemname]
             if (!player.rpg.items[itemname]) player.rpg.items[itemname] = 0
             player.rpg.items[itemname] += itemamount
-            result1 = `menemukan ${itemname} x${itemamount}\n`
+            result1 = `menemukan ${itemname} x${itemamount}.`
             result3 = `menemukan ${itemname} x${itemamount}`
             url = item.url
         } else {
