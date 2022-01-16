@@ -10,7 +10,10 @@ handler.all = async function (m, { isBlocked }) {
     let setting = db.data.settings[this.user.jid]
     let { isBanned } = db.data.chats[m.chat]
     let { banned } = db.data.users[m.sender]
+    let Database = user.rpg
     // clean database if value is 0
+    let trashitem = Object.entries(Database.items).filter(([name, data]) => data == 0 ? delete Database.items[name] : null)
+    let trashfish = Object.entries(Database.fish).filter(([name, data]) => data == 0 ? delete Database.fish[name] : null)
     // ketika ditag
     try {
         if (m.mentionedJid.includes(this.user.jid) && m.isGroup) {
