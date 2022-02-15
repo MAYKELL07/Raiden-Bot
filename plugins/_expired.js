@@ -1,17 +1,11 @@
-let handler = m => m
-handler.before = async function (m) {
-
-    if (m.isGroup && db.data.chats[m.chat].expired != 0) {
-        if (new Date() * 1 >= db.data.chats[m.chat].expired) {
-            this.reply(m.chat, `Trial atau waktu sewa anda sudah habis\nwaktunya *${this.user.name}* untuk meninggalkan grup`, null).then(() => {
-                this.sendContact(m.chat, owner[0], this.getName(owner[0] + '@s.whatsapp.net'), m).then(() => {
-                    this.groupLeave(m.chat).then(() => {
-                        db.data.chats[m.chat].expired = 0
-                    })
-                })
-            })
-        }
+export async function all(m) {
+    if (!m.isGroup)
+        return
+    let chats = global.db.data.chats[m.chat]
+    if (!chats.expired)
+        return !0
+    if (+new Date() > chats.expired) {
+        await m.reply('Bye🖐 bot akan left!!')
+        await this.groupLeave(m.chat)
     }
 }
-
-module.exports = handler

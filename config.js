@@ -1,50 +1,81 @@
-let fs = require('fs')
-global.DevMode = false
-global.owner = JSON.parse(fs.readFileSync('./data/owner.json')) // Letakan nomor kamu di file /data/owner.json
-global.mods = JSON.parse(fs.readFileSync('./data/moderator.json')) // Moderator?
-global.prems = JSON.parse(fs.readFileSync('./data/premium.json')) // Pengguna premium tidak memerlukan limit
+import { watchFile, unwatchFile } from 'fs'
+import chalk from 'chalk'
+import { fileURLToPath } from 'url'
+
+global.owner = [
+  ['6281390658325'],
+  ['6282256115584'],
+  ['6281319944687', 'BG', true]
+  // [number, dia creator/owner?, dia developer?]
+] // Put your number here
+global.mods = [] // Want some help?
+global.prems = [] // Premium user has unlimited limit
 global.APIs = { // API Prefix
-  // nama: 'https://website'
-  bx: 'https://bx-hunter.herokuapp.com',
-  rey: 'https://server-api-rey.herokuapp.com',
-  dhnjing: 'https://dhnjing.xyz',
-  hardianto: 'https://hardianto-chan.herokuapp.com',
-  jonaz: 'https://jonaz-api-v2.herokuapp.com',
-  neoxr: 'https://api.neoxr.eu.org',
+  // name: 'https://website'
   nrtm: 'https://nurutomo.herokuapp.com',
-  pencarikode: 'https://pencarikode.xyz',
+  bg: 'http://bochil.ddns.net',
   xteam: 'https://api.xteam.xyz',
   zahir: 'https://zahirr-web.herokuapp.com',
-  zekais: 'http://zekais-api.herokuapp.com',
   zeks: 'https://api.zeks.xyz',
+  pencarikode: 'https://pencarikode.xyz',
+  LeysCoder: 'https://leyscoders-api.herokuapp.com'
 }
-global.APIKeys = { // APIKey nya disini
+global.APIKeys = { // APIKey Here
   // 'https://website': 'apikey'
-  'https://server-api-rey.herokuapp.com': 'apirey',
-  'https://bx-hunter.herokuapp.com': 'Ikyy69',
-  'https://hardianto-chan.herokuapp.com': 'hardianto',
-  'https://neoxr-api.herokuapp.com': 'yntkts',
-  'https://pencarikode.xyz': 'pais',
-  'https://api.xteam.xyz': '4d956dac96d4edda',
+  'https://api.xteam.xyz': 'd90a9e986e18778b',
   'https://zahirr-web.herokuapp.com': 'zahirgans',
   'https://api.zeks.xyz': 'apivinz',
+  'https://pencarikode.xyz': 'pais',
+  'https://leyscoders-api.herokuapp.com': 'dappakntlll'
 }
 
 // Sticker WM
-global.packname = 'Raiden-Bot'
-global.author = 'Maykell'
+global.packname = 'wa.me/6285713964963'
+global.author = 'Metro Bot'
 
-global.wait = '*tunggu...*'
-global.eror = '*Server Error*'
-global.fla = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text='
+global.multiplier = 69 // The higher, The harder levelup
 
-global.multiplier = 100 // Semakin tinggi, semakin sulit naik level
+global.rpg = {
+  emoticon(string) {
+    string = string.toLowerCase()
+    let emot = {
+      level: '🧬',
+      limit: '🌌',
+      health: '❤️',
+      exp: '✉️',
+      money: '💵',
+      potion: '🥤',
+      diamond: '💎',
+      common: '📦',
+      uncommon: '🎁',
+      mythic: '🗳️',
+      legendary: '🗃️',
+      pet: '🎁',
+      trash: '🗑',
+      armor: '🥼',
+      sword: '⚔️',
+      wood: '🪵',
+      rock: '🪨',
+      string: '🕸️',
+      horse: '🐎',
+      cat: '🐈',
+      dog: '🐕',
+      fox: '🦊',
+      petFood: '🍖',
+      iron: '⛓️',
+      gold: '👑',
+      emerald: '💚'
+    }
+    let results = Object.keys(emot).map(v => [v, new RegExp(v, 'gi')]).filter(v => v[1].test(string))
+    if (!results.length) return ''
+    else return emot[results[0][0]]
+  }
+}
 
-let chalk = require('chalk')
-let file = require.resolve(__filename)
-fs.watchFile(file, () => {
-  fs.unwatchFile(file)
+
+let file = fileURLToPath(import.meta.url)
+watchFile(file, () => {
+  unwatchFile(file)
   console.log(chalk.redBright("Update 'config.js'"))
-  delete require.cache[file]
-  require(file)
+  import(file)
 })

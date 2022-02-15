@@ -1,13 +1,10 @@
 function handler(m) {
-  // Ini cuma contoh, jgn di uncomment -_-
-  // F this.sendContact(m.chat, '6282324892737', 'Fokus Dot Id', m)
-  this.sendContact(m.chat, '6289602213818', 'Maykell', m)
-  conn.reply(m.chat, `Nih OwnerKu Jangan dispam yah >_<`, m)
-  
+  const data = global.owner.filter(([id, isCreator]) => id && isCreator)
+  this.sendContact(m.chat, data.map(([id, name]) => [id, name]), m)
 }
 handler.help = ['owner', 'creator']
-handler.tags = ['about']
+handler.tags = ['info']
 
 handler.command = /^(owner|creator)$/i
 
-module.exports = handler
+export default handler
