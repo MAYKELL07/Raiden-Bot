@@ -46,7 +46,7 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
           throw false
         }
       }
-      chat.delete = isEnable
+      chat.delete = !isEnable
       break
     case 'autodelvn':
       if (m.isGroup) {

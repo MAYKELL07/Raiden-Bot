@@ -3,13 +3,10 @@ import './config.js';
 
 import { createRequire } from "module"; // Bring in the ability to create the 'require' method
 import path, { join } from 'path'
-import { fileURLToPath } from 'url'
-global.__filename = function filename(pathURL = import.meta.url) { return fileURLToPath(pathURL) }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
+import { fileURLToPath, pathToFileURL } from 'url'
+import { platform } from 'process'
+global.__filename = function filename(pathURL = import.meta.url, rmPrefix = platform !== 'win32') { return rmPrefix ? /file:\/\/\//.test(pathURL) ? fileURLToPath(pathURL) : pathURL : pathToFileURL(pathURL).toString() }; global.__dirname = function dirname(pathURL) { return path.dirname(global.__filename(pathURL, true)) }; global.__require = function require(dir = import.meta.url) { return createRequire(dir) }
 
-import {
-  useSingleFileAuthState,
-  DisconnectReason
-} from '@adiwajshing/baileys'
 import * as ws from 'ws';
 import {
   readdirSync,
@@ -31,6 +28,10 @@ import {
   mongoDB,
   mongoDBV2
 } from './lib/mongoDB.js';
+const {
+  useSingleFileAuthState,
+  DisconnectReason
+} = await import('@adiwajshing/baileys')
 
 const { CONNECTING } = ws
 const { chain } = lodash
@@ -146,10 +147,7 @@ global.reloadHandler = async function (restatConn) {
     const oldChats = global.conn.chats
     try { global.conn.ws.close() } catch { }
     conn.ev.removeAllListeners()
-    global.conn = {
-      chats: oldChats,
-      ...makeWASocket(connectionOptions)
-    }
+    global.conn = makeWASocket(connectionOptions, { chats: oldChats })
     isInit = true
   }
   if (!isInit) {
@@ -164,11 +162,11 @@ global.reloadHandler = async function (restatConn) {
   conn.bye = 'Selamat tinggal @user!'
   conn.spromote = '@user sekarang admin!'
   conn.sdemote = '@user sekarang bukan admin!'
-  conn.handler = handler.handler.bind(conn)
-  conn.participantsUpdate = handler.participantsUpdate.bind(conn)
-  conn.onDelete = handler.deleteUpdate.bind(conn)
-  conn.connectionUpdate = connectionUpdate.bind(conn)
-  conn.credsUpdate = saveState.bind(conn)
+  conn.handler = handler.handler.bind(global.conn)
+  conn.participantsUpdate = handler.participantsUpdate.bind(global.conn)
+  conn.onDelete = handler.deleteUpdate.bind(global.conn)
+  conn.connectionUpdate = connectionUpdate.bind(global.conn)
+  conn.credsUpdate = saveState.bind(global.conn)
 
   conn.ev.on('messages.upsert', conn.handler)
   conn.ev.on('group-participants.update', conn.participantsUpdate)
@@ -179,13 +177,14 @@ global.reloadHandler = async function (restatConn) {
   return true
 }
 
-const pluginFolder = join(__dirname, 'plugins')
+const pluginFolder = global.__dirname(join(__dirname, './plugins/index'))
 const pluginFilter = filename => /\.js$/.test(filename)
 global.plugins = {}
 async function filesInit() {
   for (let filename of readdirSync(pluginFolder).filter(pluginFilter)) {
     try {
-      const module = await import(join(pluginFolder, filename))
+      let file = global.__filename(join(pluginFolder, filename))
+      const module = await import(file)
       global.plugins[filename] = module.default || module
     } catch (e) {
       conn.logger.error(e)
@@ -197,7 +196,7 @@ filesInit().then(_ => console.log(Object.keys(global.plugins))).catch(console.er
 
 global.reload = async (_ev, filename) => {
   if (pluginFilter(filename)) {
-    let dir = join(pluginFolder, filename)
+    let dir = global.__filename(join(pluginFolder, filename), true)
     if (filename in global.plugins) {
       if (existsSync(dir)) conn.logger.info(`re - require plugin '${filename}'`)
       else {
@@ -211,7 +210,7 @@ global.reload = async (_ev, filename) => {
     })
     if (err) conn.logger.error(`syntax error while loading '${filename}'\n${format(err)}`)
     else try {
-      const module = (await import(`${dir}?update=${Date.now()}`))
+      const module = (await import(`${global.__filename(dir)}?update=${Date.now()}`))
       global.plugins[filename] = module.default || module
     } catch (e) {
       conn.logger.error(`error require plugin '${filename}\n${format(e)}'`)
@@ -221,7 +220,7 @@ global.reload = async (_ev, filename) => {
   }
 }
 Object.freeze(global.reload)
-watch(join(__dirname, 'plugins'), global.reload)
+watch(pluginFolder, global.reload)
 await global.reloadHandler()
 
 // Quick Test

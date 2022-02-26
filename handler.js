@@ -19,13 +19,13 @@ export async function handler(chatUpdate) {
     let m = chatUpdate.messages[chatUpdate.messages.length - 1]
     if (!m)
         return
+    if (m.messageStubType == 2) console.log(m)
     if (global.db.data == null)
         await global.loadDatabase()
     try {
         m = smsg(this, m) || m
         if (!m)
             return
-        if (m.messageStubType && m.messageStubType != 2) console.log(m)
         m.exp = 0
         m.limit = false
         try {
@@ -607,10 +607,10 @@ export async function participantsUpdate({ id, participants, action }) {
                 for (let user of participants) {
                     let pp = './src/avatar_contact.png'
                     try {
-                        pp = await this.getProfilePicture(user)
+                        pp = await this.profilePictureUrl(user, 'image')
                     } catch (e) {
                     } finally {
-                        text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc.toString()) :
+                        text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
                             (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
                         this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
                     }
@@ -669,7 +669,7 @@ global.dfail = (type, m, conn) => {
 }
 
 
-let file = global.__filename(import.meta.url)
+let file = global.__filename(import.meta.url, true)
 watchFile(file, async () => {
     unwatchFile(file)
     console.log(chalk.redBright("Update 'handler.js'"))
