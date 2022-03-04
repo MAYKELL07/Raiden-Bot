@@ -24,6 +24,8 @@ import { tmpdir } from 'os';
 import { format } from 'util'
 import { makeWASocket, protoType } from './lib/simple.js';
 import { Low, JSONFile } from 'lowdb'
+import pino from 'pino' 
+import prettifier from 'pino-pretty'
 import {
   mongoDB,
   mongoDBV2
@@ -32,6 +34,7 @@ const {
   useSingleFileAuthState,
   DisconnectReason
 } = await import('@adiwajshing/baileys')
+
 
 const { CONNECTING } = ws
 const { chain } = lodash
@@ -89,10 +92,23 @@ const { state, saveState } = useSingleFileAuthState(global.authFile)
 const connectionOptions = {
   printQRInTerminal: true,
   auth: state,
-  // logger: P({ level: 'trace' })
+  logger:
+  pino({
+    transport: {
+      target: 'pino-pretty',
+      options: {
+        colorize: true,
+        levelFirst: true, 
+        ignore: 'hostname', 
+        translateTime: true
+      }
+    }
+  }).child({ class: 'baileys'}),
+  version: [2, 2204, 13]
 }
 
 global.conn = makeWASocket(connectionOptions)
+
 conn.isInit = false
 
 if (!opts['test']) {

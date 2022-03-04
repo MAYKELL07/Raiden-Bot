@@ -1,19 +1,30 @@
-FROM node:lts-buster
+# ----------------------------------
+# Pterodactyl Core Dockerfile
+# Environment: NodeJS
+# Minimum Panel Version: 1.x.x
+# ----------------------------------
+FROM     node:17-bullseye
 
-RUN apt-get update && \
-  apt-get install -y \
-  ffmpeg \
-  imagemagick \
-  webp && \
-  apt-get upgrade -y && \
-  rm -rf /var/lib/apt/lists/*
+LABEL    Raiden.Dev="ferrelymichaellie@gmail.com"
 
-COPY package.json .
+RUN      apt install -y ffmpeg webp imagemagick
+RUN      adduser -D -h /home/container container
 
-RUN npm install
+USER     container
+ENV      USER=container HOME=/home/container
 
-COPY . .
+WORKDIR  /home/container
 
-EXPOSE 5000
+COPY     package.json .
 
-CMD ["node", "index.js"]
+RUN      npm install
+
+COPY     . .
+
+EXPOSE    5000
+
+COPY     ./entrypoint.sh /entrypoint.sh
+
+RUN      chmod +x /entrypoint.sh
+
+CMD      ["/bin/bash", "/entrypoint.sh"]

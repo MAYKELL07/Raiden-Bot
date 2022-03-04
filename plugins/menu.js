@@ -151,6 +151,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     // conn.reply(m.chat, text.trim(), m)
+    
     conn.sendHydrated(m.chat, text.trim(), author, null, 'https://github.com/BochilGaming/games-wabot', 'Github', null, null, [
       ['Donate', '/donasi'],
       ['Speed', '/ping'],
