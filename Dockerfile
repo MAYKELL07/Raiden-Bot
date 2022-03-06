@@ -7,8 +7,7 @@ FROM     node:17-bullseye
 
 LABEL    Raiden.Dev="ferrelymichaellie@gmail.com"
 
-RUN      apt install -y ffmpeg webp imagemagick
-RUN      adduser -D -h /home/container container
+RUN      adduser --disabled-password --home /home/container container
 
 USER     container
 ENV      USER=container HOME=/home/container
@@ -24,7 +23,5 @@ COPY     . .
 EXPOSE    5000
 
 COPY     ./entrypoint.sh /entrypoint.sh
-
-RUN      chmod +x /entrypoint.sh
 
 CMD      ["/bin/bash", "/entrypoint.sh"]
