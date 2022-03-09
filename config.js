@@ -2,6 +2,7 @@ import { watchFile, unwatchFile } from 'fs'
 import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 
+global.language = 'en'
 global.owner = [
   ['6289602213818', 'Creator', true]
   // [number, dia creator/owner?, dia developer?]
