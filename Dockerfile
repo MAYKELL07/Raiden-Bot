@@ -1,18 +1,8 @@
-# ----------------------------------
-# Pterodactyl Core Dockerfile
-# Environment: NodeJS
-# Minimum Panel Version: 1.x.x
-# ----------------------------------
-FROM     node:17-bullseye
+FROM     node:17-alpine
 
 LABEL    Raiden.Dev="ferrelymichaellie@gmail.com"
 
-RUN      adduser --disabled-password --home /home/container container
-
-USER     container
-ENV      USER=container HOME=/home/container
-
-WORKDIR  /home/container
+RUN      apk add  --no-cache ffmpeg imagemagick
 
 COPY     package.json .
 
@@ -20,8 +10,6 @@ RUN      npm install
 
 COPY     . .
 
-EXPOSE    5000
+EXPOSE    80
 
-COPY     ./entrypoint.sh /entrypoint.sh
-
-CMD      ["/bin/bash", "/entrypoint.sh"]
+CMD      ["npm", "start"]
